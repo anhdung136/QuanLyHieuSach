@@ -33,7 +33,7 @@ class IMS:
         self.MenuLogo = ImageTk.PhotoImage(self.MenuLogo)
 
         self.leftMenu = Frame(self.root, bd=2, relief=RIDGE, bg="#F3EEEA")
-        self.leftMenu.place(x=0, y=102, width=200, height=565)
+        self.leftMenu.place(x=0, y=102, width=200, height=533)
         
         lbl_menuLogo = Label(self.leftMenu, image=self.MenuLogo)
         lbl_menuLogo.pack(side=TOP, fill=X)
@@ -42,8 +42,20 @@ class IMS:
         lbl_menu.pack(side=TOP, fill=X)
         
         self.icon_side=PhotoImage(file="images/side.png")
-        btn_employee = Button(self.leftMenu, text="Nhân viên", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
+        btn_employee = Button(self.leftMenu, text="Nhân viên",image=self.icon_side,compound=LEFT,padx=10,anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
         btn_employee.pack(side=TOP, fill=X)
+
+        btn_supplier = Button(self.leftMenu, text="Vật tư",image=self.icon_side,compound=LEFT,padx=10,anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
+        btn_supplier.pack(side=TOP, fill=X)
+
+        btn_category = Button(self.leftMenu, text="danh mục",image=self.icon_side,compound=LEFT,padx=10,anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
+        btn_category.pack(side=TOP, fill=X)
+        
+        btn_product = Button(self.leftMenu, text="Sách",image=self.icon_side,compound=LEFT,padx=10,anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
+        btn_product.pack(side=TOP, fill=X)
+        
+        btn_sales = Button(self.leftMenu, text="Lợi tức",image=self.icon_side,compound=LEFT,padx=10,anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
+        btn_sales.pack(side=TOP, fill=X)
 
 root = Tk()
 obj = IMS(root)
