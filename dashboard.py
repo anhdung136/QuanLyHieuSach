@@ -10,6 +10,7 @@ class IMS:
         self.create_clock_label()  # Gọi hàm tạo label clock
         self.create_left_menu()     # Gọi hàm tạo left menu
         self.root.config(bg="#FFFFEC")
+    
     #====title====
     def create_title_label(self):
         self.icon_title = PhotoImage(file="images/book.png")
@@ -27,15 +28,22 @@ class IMS:
 
     #====Left menu====
     def create_left_menu(self):
-        self.MenuLogo=Image.open("images/menu.png")
+        self.MenuLogo = Image.open("images/menu.png")
         self.MenuLogo = self.MenuLogo.resize((200, 200), Image.LANCZOS)
-        self.MenuLogo=ImageTk.PhotoImage(self.MenuLogo)
+        self.MenuLogo = ImageTk.PhotoImage(self.MenuLogo)
 
-        self.leftMenu = Frame(self.root, bd=2, relief=RIDGE,bg="#F3EEEA")
+        self.leftMenu = Frame(self.root, bd=2, relief=RIDGE, bg="#F3EEEA")
         self.leftMenu.place(x=0, y=102, width=200, height=565)
         
-        lbl_menuLogo=Label(self.leftMenu,image=self.MenuLogo)  # Bạn đã sai chính tả tên biến LeftMenu
-        lbl_menuLogo.pack(side=TOP,fill=X)
+        lbl_menuLogo = Label(self.leftMenu, image=self.MenuLogo)
+        lbl_menuLogo.pack(side=TOP, fill=X)
+
+        lbl_menu = Label(self.leftMenu, text="Menu", font=("time new roman", 25, "bold"), bg="#76453B",fg="#F8FAE5")
+        lbl_menu.pack(side=TOP, fill=X)
+        
+        self.icon_side=PhotoImage(file="images/side.png")
+        btn_employee = Button(self.leftMenu, text="Nhân viên", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
+        btn_employee.pack(side=TOP, fill=X)
 
 root = Tk()
 obj = IMS(root)
