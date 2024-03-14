@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import Image, ImageTk #pip install pillow
-
+from employee import employeeClass
 class IMS:
     def __init__(self, root):
         self.root = root
@@ -44,7 +44,7 @@ class IMS:
         lbl_menu.pack(side=TOP, fill=X)
         
         self.icon_side=PhotoImage(file="images/side.png")
-        btn_employee = Button(self.leftMenu, text="Nhân viên",image=self.icon_side,compound=LEFT,padx=10,anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
+        btn_employee = Button(self.leftMenu, text="Nhân viên",command=self.employee,image=self.icon_side,compound=LEFT,padx=10,anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
         btn_employee.pack(side=TOP, fill=X)
 
         btn_supplier = Button(self.leftMenu, text="Vật tư",image=self.icon_side,compound=LEFT,padx=10,anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
@@ -80,8 +80,13 @@ class IMS:
     def create_footer_label(self):
         self.lbl_footer = Label(self.root, text="Hệ thống quản lý hiệu sách  |  phát triển bởi nhóm 9 -lớp K15DCPM06\nNguyễn Anh Dũng  -  Nguyễn Trọng Nghĩa  -  Nguyễn Hoàng Giang", font=("Arial Rounded MT Bold", 12, "bold"), bg="#76453B", fg="#F8FAE5").pack(side=BOTTOM,fill=X) 
 
+#===============================================================================================================================================================================================
 
+    def employee(self):
+        self.new_win=Toplevel(self.root)
+        self.obj=employeeClass(self.new_win)
 
-root = Tk()
-obj = IMS(root)
-root.mainloop()
+if __name__=="__main__":
+    root = Tk()
+    obj = IMS(root)
+    root.mainloop()
