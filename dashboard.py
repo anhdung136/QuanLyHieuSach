@@ -76,7 +76,7 @@ class IMS:
     def employee(self):
         self.new_win = Toplevel(self.root)
         self.obj = employeeClass(self.new_win)
-    
+
     # ==== Exit Application ====
     def exit_application(self):
         self.root.destroy()
