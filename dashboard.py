@@ -7,7 +7,7 @@ class IMS:
     def __init__(self, root):
         self.root = root
         self.root.geometry("1000x567+0+0")
-        self.root.title("- - - ỨNG DỤNG QUẢN LÝ HIỆU SÁCH - - - NHÓM 9 - - - K15DCPM06 - - -")
+        self.root.title("- 📒 - HỆ THỐNG QUẢN LÝ HIỆU SÁCH - 🖍 - NHÓM 9 - 📰 - K15DCPM06 - 📜 -")
         self.create_title_label()
         self.create_clock_label()  # Gọi hàm tạo label clock
         self.create_footer_label()  # Gọi hàm tạo footer
@@ -19,7 +19,7 @@ class IMS:
     # ====title====
     def create_title_label(self):
         self.icon_title = PhotoImage(file="images/book.png")
-        title = Label(self.root, text="ỨNG DỤNG QUẢN LÝ HIỆU SÁCH", image=self.icon_title, compound=LEFT, font=("time new roman", 30, "bold"), bg="#B19470", fg="#F8FAE5", anchor="w", padx=20)
+        title = Label(self.root, text="HỆ THỐNG QUẢN LÝ HIỆU SÁCH", image=self.icon_title, compound=LEFT, font=("time new roman", 30, "bold"), bg="#B19470", fg="#F8FAE5", anchor="w", padx=20)
         title.place(x=0, y=0, relwidth=1, height=70)
     
     # ====btn_logout====
@@ -70,7 +70,7 @@ class IMS:
     
     # ====footer====
     def create_footer_label(self):
-        self.lbl_footer = Label(self.root,text="Ứng dụng quản lý hiệu sách  -  phát triển bởi nhóm 9 - lớp K15DCPM06\nNguyễn Anh Dũng  -  Nguyễn Trọng Nghĩa  -  Nguyễn Hoàng Giang", font=("time new roman", 12, "bold"), bg="#76453B", fg="#F8FAE5").pack(side=BOTTOM,fill=X)
+        self.lbl_footer = Label(self.root,text="Hệ thống quản lý hiệu sách  -  phát triển bởi nhóm 9 - lớp K15DCPM06\nNguyễn Anh Dũng  -  Nguyễn Trọng Nghĩa  -  Nguyễn Hoàng Giang", font=("time new roman", 12, "bold"), bg="#76453B", fg="#F8FAE5").pack(side=BOTTOM,fill=X)
     
     # ===============================================================================================================================================================================================
     def employee(self):
