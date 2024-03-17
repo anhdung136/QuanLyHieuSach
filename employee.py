@@ -21,7 +21,6 @@ class employeeClass:
         self.var_name = StringVar()
         self.var_dob = StringVar()
         self.var_email = StringVar()
-        self.var_pass = StringVar()
         self.var_utype = StringVar()
         self.var_address = StringVar()
         self.var_salary = StringVar()
@@ -70,17 +69,14 @@ class employeeClass:
 
         #==================== hàng 3 ===============
         lbl_email = Label(self.root, text="Email", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place( x=5, y=230)
-        lbl_pass = Label(self.root, text="Mật khẩu", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=285, y=230)
-        lbl_salary = Label(self.root, text="lương", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=535, y=230)
+        lbl_salary = Label(self.root, text="lương", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=285, y=230)
 
         txt_email = Entry(self.root, textvariable=self.var_email, font=("time new roman", 15), bg="#F3EEEA", fg="#000000")
         txt_email.place(x=63, y=230, width=208)
 
-        txt_pass = Entry(self.root, textvariable=self.var_pass, font=("time new roman", 15), bg="#F3EEEA", fg="#000000")
-        txt_pass.place(x=379, y=230, width=145)
-
+       
         txt_salary = Entry(self.root, textvariable=self.var_salary, font=("time new roman", 15), bg="#F3EEEA", fg="#000000")
-        txt_salary.place(x=602, y=230, width=181)
+        txt_salary.place(x=350, y=230, width=174)
 
         #============hàng 4=======================
         lbl_address = Label(self.root, text="Địa chỉ", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=5, y=270)
@@ -99,7 +95,7 @@ class employeeClass:
         scrolly = Scrollbar(emp_frame, orient=VERTICAL)
         scrollx = Scrollbar(emp_frame, orient=HORIZONTAL)
 
-        self.EmployeeTable = ttk.Treeview(emp_frame,columns=("empid", "name", "email", "gender", "contact", "dob", "pass","utype", "address", "salary"), yscrollcommand=scrolly.set,xscrollcommand=scrollx.set)
+        self.EmployeeTable = ttk.Treeview(emp_frame,columns=("empid", "name", "email", "gender", "contact", "dob","utype", "address", "salary"), yscrollcommand=scrolly.set,xscrollcommand=scrollx.set)
         scrolly.pack(side=RIGHT, fill=Y)
         scrolly.config(command=self.EmployeeTable.yview)
 
@@ -109,7 +105,6 @@ class employeeClass:
         self.EmployeeTable.heading("gender", text=u"Giới tính")
         self.EmployeeTable.heading("contact", text=u"Liên hệ")
         self.EmployeeTable.heading("dob", text=u"Ngày sinh")
-        self.EmployeeTable.heading("pass", text=u"Mật khẩu")
         self.EmployeeTable.heading("utype", text=u"Quyền")
         self.EmployeeTable.heading("address", text=u"Địa chỉ")
         self.EmployeeTable.heading("salary", text=u"Lương")
@@ -117,12 +112,11 @@ class employeeClass:
         self.EmployeeTable["show"] = "headings"
 
         self.EmployeeTable.column("empid", width=5)
-        self.EmployeeTable.column("name", width=80)
+        self.EmployeeTable.column("name", width=90)
         self.EmployeeTable.column("email", width=70)
         self.EmployeeTable.column("gender", width=17)
         self.EmployeeTable.column("contact", width=40)
         self.EmployeeTable.column("dob", width=40)
-        self.EmployeeTable.column("pass", width=30)
         self.EmployeeTable.column("utype", width=30)
         self.EmployeeTable.column("address", width=50)
         self.EmployeeTable.column("salary", width=30)
@@ -144,16 +138,15 @@ class employeeClass:
                 if row != None:
                     messagebox.showerror("Error", "Đã có mã số này rồi", parent=self.root)
                 else:
-                    cur.execute("Insert into employee(empid,name,email,gender,contact,dob,pass,utype,address,salary) values (?,?,?,?,?,?,?,?,?,?)",(
+                    cur.execute("Insert into employee(empid,name,email,gender,contact,dob,utype,address,salary) values (?,?,?,?,?,?,?,?,?)",(
                                         self.var_empid.get(),
                                         self.var_name.get(),
                                         self.var_email.get(),
                                         self.var_gender.get(),
                                         self.var_contact.get(),
                                         self.var_dob.get(),
-                                        self.var_pass.get(),
                                         self.var_utype.get(),
-                                        self.txt_address.get('1.0',END),  # Sửa từ txt_address thành self.txt_address
+                                        self.txt_address.get('1.0',END), 
                                         self.var_salary.get()
                         ))
                     con.commit()
