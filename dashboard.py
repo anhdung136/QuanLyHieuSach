@@ -1,5 +1,5 @@
 from tkinter import *
-from datetime import datetime
+import time
 from PIL import Image, ImageTk  # pip install pillow
 from tkinter import messagebox
 from employee import employeeClass
@@ -11,6 +11,7 @@ class IMS:
         self.root.title("- 📒 - HỆ THỐNG QUẢN LÝ HIỆU SÁCH - 🖍 - NHÓM 9 - 📰 - K15DCPM06 - 📜 -")
         self.create_title_label()
         self.create_clock_label()  # Gọi hàm tạo label clock
+        self.update_clock()
         self.create_footer_label()  # Gọi hàm tạo footer
         self.create_left_menu()  # Gọi hàm tạo left menu
         self.create_content_label()  # Gọi hàm tạo nội dung
@@ -30,15 +31,14 @@ class IMS:
     
     # ====clock====
     def create_clock_label(self):
-        self.lbl_clock = Label(self.root, text="Date: DD-MM-YYYY\t Time: HH:MM:SS",font=("time new roman", 15), bg="#E1C78F", fg="#F8FAE5")
+        self.lbl_clock = Label(self.root, text="Chào mừng đã đến với hệ thống\t Date: DD-MM-YYYY\t Time: HH:MM:SS",font=("time new roman", 15), bg="#E1C78F", fg="#F8FAE5")
         self.lbl_clock.place(x=0, y=70, relwidth=1, height=30)
-        self.update_clock()
-
-    def update_clock(self):
-        current_time = datetime.now().strftime("Date: %d-%m-%Y\t Time: %H:%M:%S")
-        self.lbl_clock.config(text=current_time)
-        self.root.after(1000, self.update_clock)  # Cập nhật lại sau mỗi giây
     
+    def update_clock(self):
+        current_time = time.strftime("%d-%m-%Y %H:%M:%S")
+        self.lbl_clock.config(text=f"Chào mừng đã đến với hệ thống\t Date: {current_time}",)
+        self.root.after(1000, self.update_clock)
+
     # ====Left menu====
     def create_left_menu(self):
         self.MenuLogo = Image.open("images/menu.png")
