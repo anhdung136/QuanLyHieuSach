@@ -117,22 +117,23 @@ class employeeClass:
         self.EmployeeTable["show"] = "headings"
 
         self.EmployeeTable.column("empid", width=5)
-        self.EmployeeTable.column("name", width=100)
-        self.EmployeeTable.column("email", width=50)
+        self.EmployeeTable.column("name", width=80)
+        self.EmployeeTable.column("email", width=70)
         self.EmployeeTable.column("gender", width=17)
-        self.EmployeeTable.column("contact", width=30)
+        self.EmployeeTable.column("contact", width=40)
         self.EmployeeTable.column("dob", width=40)
-        self.EmployeeTable.column("pass", width=40)
-        self.EmployeeTable.column("utype", width=10)
-        self.EmployeeTable.column("address", width=100)
-        self.EmployeeTable.column("salary", width=20)
+        self.EmployeeTable.column("pass", width=30)
+        self.EmployeeTable.column("utype", width=30)
+        self.EmployeeTable.column("address", width=50)
+        self.EmployeeTable.column("salary", width=30)
 
         self.EmployeeTable.pack(fill=BOTH, expand=1)
+        self.show()
 
 #=================================================================================================================
     
     def add(self):
-        con = sqlite3.connect(database=r'ims.db')
+        con = sqlite3.connect(database="ims.db")
         cur = con.cursor()
         try:
             if self.var_empid.get() == "":
@@ -157,10 +158,27 @@ class employeeClass:
                         ))
                     con.commit()
                     messagebox.showinfo("Thành công", "Đã thêm nhân viên", parent=self.root)
+                    self.show()
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}")
+
+    def show(self):
+        con=sqlite3.connect(database="ims.db")
+        cur=con.cursor()
+        try:
+            cur.execute("Select * from employee")
+            rows=cur.fetchall()
+            self.EmployeeTable.delete(*self.EmployeeTable.get_children())
+            for row in rows:
+                self.EmployeeTable.insert('',END,values=row)
+
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root)
+
+
 
 if __name__ == "__main__":
     root = Tk()
     obj = employeeClass(root)
     root.mainloop()
+ 
