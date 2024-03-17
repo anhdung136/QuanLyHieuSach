@@ -1,4 +1,5 @@
 from tkinter import *
+from datetime import datetime
 from PIL import Image, ImageTk  # pip install pillow
 from tkinter import messagebox
 from employee import employeeClass
@@ -29,8 +30,14 @@ class IMS:
     
     # ====clock====
     def create_clock_label(self):
-        self.lbl_clock = Label(self.root, text="Chào mừng đã đến với hệ thống\t Date: DD-MM-YYYY\t Time: HH:MM:SS",font=("time new roman", 15), bg="#E1C78F", fg="#F8FAE5")
+        self.lbl_clock = Label(self.root, text="Date: DD-MM-YYYY\t Time: HH:MM:SS",font=("time new roman", 15), bg="#E1C78F", fg="#F8FAE5")
         self.lbl_clock.place(x=0, y=70, relwidth=1, height=30)
+        self.update_clock()
+
+    def update_clock(self):
+        current_time = datetime.now().strftime("Date: %d-%m-%Y\t Time: %H:%M:%S")
+        self.lbl_clock.config(text=current_time)
+        self.root.after(1000, self.update_clock)  # Cập nhật lại sau mỗi giây
     
     # ====Left menu====
     def create_left_menu(self):
