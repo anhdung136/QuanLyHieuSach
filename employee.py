@@ -87,7 +87,7 @@ class employeeClass:
         btn_add = Button(self.root, text="Lưu", command=self.add, font=("time new roman", 17), bg="#1A5D1A", fg="#FAF0D7").place(x=570, y=25, width=80, height=30)
         btn_upadte = Button(self.root, text="Sửa", command=self.update, font=("time new roman", 17), bg="#0C359E", fg="#FAF0D7").place(x=685, y=25, width=80, height=30)
         btn_delete = Button(self.root, text="xóa", command=self.delete, font=("time new roman", 17), bg="#B70404", fg="#FAF0D7").place(x=570, y=70, width=80, height=30)
-        btn_clear = Button(self.root, text="làm mới", font=("time new roman", 15), bg="#FFA447",fg="#FAF0D7").place(x=685, y=70, width=80, height=30)
+        btn_clear = Button(self.root, text="làm mới", command=self.clear, font=("time new roman", 15), bg="#FFA447",fg="#FAF0D7").place(x=685, y=70, width=80, height=30)
         #======= thông tin nhân viên ===========
         emp_frame = Frame(self.root, bd=3, relief=RIDGE)
         emp_frame.place(x=0, y=325, relwidth=1, height=109)
@@ -205,15 +205,15 @@ class employeeClass:
                 else:
                     cur.execute("Update employee set name=?,email=?,gender=?,contact=?,dob=?,utype=?,address=?,salary=? where empid=?",(
                                         
-                                        self.var_name.get(),
-                                        self.var_email.get(),
-                                        self.var_gender.get(),
-                                        self.var_contact.get(),
-                                        self.var_dob.get(),
-                                        self.var_utype.get(),
-                                        self.txt_address.get('1.0',END), 
-                                        self.var_salary.get(),
-                                        self.var_empid.get()
+                            self.var_name.get(),
+                            self.var_email.get(),
+                            self.var_gender.get(),
+                            self.var_contact.get(),
+                            self.var_dob.get(),
+                            self.var_utype.get(),
+                            self.txt_address.get('1.0',END), 
+                            self.var_salary.get(),
+                            self.var_empid.get()
                         ))
                     con.commit()
                     messagebox.showinfo("Sửa", "Đã cập nhật thành công", parent=self.root)
@@ -221,7 +221,7 @@ class employeeClass:
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
 
-
+    #____Xóa____
     def delete(self):
         con=sqlite3.connect(database=r'ims.db')
         cur=con.cursor()
@@ -239,11 +239,23 @@ class employeeClass:
                         cur.execute("delete from employee where empid=?",(self.var_empid.get(),))
                         con.commit()
                         messagebox.showinfo("Xóa","Đã xóa thành công",parent=self.root)
-                        self.show()
-
+                        self.clear()
         except Exception as ex:
-            messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")  
+            messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
 
+    #_____Làm mới____
+    def clear(self):
+        self.var_empid.set(""),
+        self.var_name.set(""),
+        self.var_email.set(""),
+        self.var_gender.set("Chọn theo"),
+        self.var_contact.set(""),
+        self.var_dob.set(""),
+        self.var_utype.set("Chọn theo"),
+        self.txt_address.set('1.0',END), 
+        self.var_salary.set("")
+        self.show()
+        
 
 if __name__ == "__main__":
     root = Tk()
