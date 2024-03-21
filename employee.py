@@ -132,12 +132,12 @@ class employeeClass:
         cur = con.cursor()
         try:
             if self.var_empid.get() == "":
-                messagebox.showerror("Error", "Hãy nhập mã số nhân viên!", parent=self.root)
+                messagebox.showerror("Lỗi", "Hãy nhập mã số nhân viên!", parent=self.root)
             else:
                 cur.execute("Select * from employee where empid=?", (self.var_empid.get(),))
                 row = cur.fetchone()
                 if row != None:
-                    messagebox.showerror("Error", "Đã có mã số này rồi", parent=self.root)
+                    messagebox.showerror("Lỗi", "Đã có mã số này rồi", parent=self.root)
                 else:
                     cur.execute("Insert into employee(empid,name,email,gender,contact,dob,utype,address,salary) values (?,?,?,?,?,?,?,?,?)",(
                                         self.var_empid.get(),
@@ -151,10 +151,10 @@ class employeeClass:
                                         self.var_salary.get()
                         ))
                     con.commit()
-                    messagebox.showinfo("Thành công", "Đã thêm nhân viên", parent=self.root)
+                    messagebox.showinfo("Thêm", "Đã thêm nhân viên", parent=self.root)
                     self.show()
         except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}")
+            messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
 
     #____show____
     def show(self):
@@ -168,7 +168,7 @@ class employeeClass:
                 self.EmployeeTable.insert('',END,values=row)
 
         except Exception as ex:
-            messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root)
+            messagebox.showerror("Lỗi",f"Lỗi đến từ: {str(ex)}",parent=self.root)
 
    
     #____get-data____
@@ -196,12 +196,12 @@ class employeeClass:
         cur = con.cursor()
         try:
             if self.var_empid.get() == "":
-                messagebox.showerror("Error", "Hãy nhập mã số nhân viên!", parent=self.root)
+                messagebox.showerror("Lỗi", "Hãy nhập mã số nhân viên!", parent=self.root)
             else:
                 cur.execute("Select * from employee where empid=?", (self.var_empid.get(),))
                 row = cur.fetchone()
                 if row == None:
-                    messagebox.showerror("Error","Mã số không hợp lệ", parent=self.root)
+                    messagebox.showerror("Lỗi","Mã số không hợp lệ", parent=self.root)
                 else:
                     cur.execute("Update employee set name=?,email=?,gender=?,contact=?,dob=?,utype=?,address=?,salary=? where empid=?",(
                                         
@@ -216,10 +216,10 @@ class employeeClass:
                                         self.var_empid.get()
                         ))
                     con.commit()
-                    messagebox.showinfo("Thành công", "Đã cập nhật thông tin", parent=self.root)
+                    messagebox.showinfo("Sửa", "Đã cập nhật thành công", parent=self.root)
                     self.show()
         except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}")
+            messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
 
 
     def delete(self):
@@ -227,22 +227,22 @@ class employeeClass:
         cur=con.cursor()
         try:
             if self.var_empid.get() == "":
-                messagebox.showerror("Error", "Hãy nhập mã số nhân viên!", parent=self.root)
+                messagebox.showerror("Lỗi", "Hãy chọn nhân viên muốn xóa!", parent=self.root)
             else:
                 cur.execute("Select * from employee where empid=?", (self.var_empid.get(),))
                 row = cur.fetchone()
                 if row == None:
-                    messagebox.showerror("Error", "Đã có mã số này rồi", parent=self.root)
+                    messagebox.showerror("Lỗi", "Đã có mã số này rồi", parent=self.root)
                 else:
                     op=messagebox.askyesno("Xác nhận","Bạn muốn xóa thông tin?",parent=self.root)
                     if op==True:
                         cur.execute("delete from employee where empid=?",(self.var_empid.get(),))
                         con.commit()
-                        messagebox.showinfo("Delete","Đã xóa thành công",parent=self.root)
+                        messagebox.showinfo("Xóa","Đã xóa thành công",parent=self.root)
                         self.show()
 
         except Exception as ex:
-            messagebox.showerror("Error", f"Error due to : {str(ex)}")  
+            messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")  
 
 
 if __name__ == "__main__":
