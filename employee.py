@@ -85,8 +85,8 @@ class employeeClass:
         self.txt_address.place(x=77, y=270, width=705, height=50)
         #======= nút chức năng thêm xóa sửa ==========
         btn_add = Button(self.root, text="Lưu", command=self.add, font=("time new roman", 17), bg="#1A5D1A", fg="#FAF0D7").place(x=570, y=25, width=80, height=30)
-        btn_upadte = Button(self.root, text="Sửa", font=("time new roman", 17), bg="#0C359E", fg="#FAF0D7").place(x=685, y=25, width=80, height=30)
-        btn_delete = Button(self.root, text="xóa", font=("time new roman", 17), bg="#B70404", fg="#FAF0D7").place(x=570, y=70, width=80, height=30)
+        btn_upadte = Button(self.root, text="Sửa", command=self.update, font=("time new roman", 17), bg="#0C359E", fg="#FAF0D7").place(x=685, y=25, width=80, height=30)
+        btn_delete = Button(self.root, text="xóa", command=self.delete, font=("time new roman", 17), bg="#B70404", fg="#FAF0D7").place(x=570, y=70, width=80, height=30)
         btn_clear = Button(self.root, text="làm mới", font=("time new roman", 15), bg="#FFA447",fg="#FAF0D7").place(x=685, y=70, width=80, height=30)
         #======= thông tin nhân viên ===========
         emp_frame = Frame(self.root, bd=3, relief=RIDGE)
@@ -120,12 +120,13 @@ class employeeClass:
         self.EmployeeTable.column("utype", width=30)
         self.EmployeeTable.column("address", width=50)
         self.EmployeeTable.column("salary", width=30)
-
         self.EmployeeTable.pack(fill=BOTH, expand=1)
+        self.EmployeeTable.bind("<ButtonRelease-1>",self.get_data)
+
         self.show()
 
 #=================================================================================================================
-    
+    #____add_____ 
     def add(self):
         con = sqlite3.connect(database="ims.db")
         cur = con.cursor()
@@ -155,6 +156,7 @@ class employeeClass:
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}")
 
+    #____show____
     def show(self):
         con=sqlite3.connect(database="ims.db")
         cur=con.cursor()
@@ -168,6 +170,79 @@ class employeeClass:
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to : {str(ex)}",parent=self.root)
 
+   
+    #____get-data____
+    def get_data(self,ev):
+        f = self.EmployeeTable.focus()
+        content = self.EmployeeTable.item(f)
+        row = content['values']
+        for value in row:
+            print(str(value).encode('unicode_escape').decode('utf-8'))
+        self.var_empid.set(row[0])
+        self.var_name.set(row[1])
+        self.var_email.set(row[2])
+        self.var_gender.set(row[3])
+        self.var_contact.set(row[4])
+        self.var_dob.set(row[5])
+        self.var_utype.set(row[6])
+        self.txt_address.delete('1.0', END)
+        self.txt_address.insert(END, row[7])
+        self.var_salary.set(row[8])
+
+
+    #____update____ 
+    def update(self):
+        con = sqlite3.connect(database="ims.db")
+        cur = con.cursor()
+        try:
+            if self.var_empid.get() == "":
+                messagebox.showerror("Error", "Hãy nhập mã số nhân viên!", parent=self.root)
+            else:
+                cur.execute("Select * from employee where empid=?", (self.var_empid.get(),))
+                row = cur.fetchone()
+                if row == None:
+                    messagebox.showerror("Error","Mã số không hợp lệ", parent=self.root)
+                else:
+                    cur.execute("Update employee set name=?,email=?,gender=?,contact=?,dob=?,utype=?,address=?,salary=? where empid=?",(
+                                        
+                                        self.var_name.get(),
+                                        self.var_email.get(),
+                                        self.var_gender.get(),
+                                        self.var_contact.get(),
+                                        self.var_dob.get(),
+                                        self.var_utype.get(),
+                                        self.txt_address.get('1.0',END), 
+                                        self.var_salary.get(),
+                                        self.var_empid.get()
+                        ))
+                    con.commit()
+                    messagebox.showinfo("Thành công", "Đã cập nhật thông tin", parent=self.root)
+                    self.show()
+        except Exception as ex:
+            messagebox.showerror("Error", f"Error due to : {str(ex)}")
+
+
+    def delete(self):
+        con=sqlite3.connect(database=r'ims.db')
+        cur=con.cursor()
+        try:
+            if self.var_empid.get() == "":
+                messagebox.showerror("Error", "Hãy nhập mã số nhân viên!", parent=self.root)
+            else:
+                cur.execute("Select * from employee where empid=?", (self.var_empid.get(),))
+                row = cur.fetchone()
+                if row == None:
+                    messagebox.showerror("Error", "Đã có mã số này rồi", parent=self.root)
+                else:
+                    op=messagebox.askyesno("Xác nhận","Bạn muốn xóa thông tin?",parent=self.root)
+                    if op==True:
+                        cur.execute("delete from employee where empid=?",(self.var_empid.get(),))
+                        con.commit()
+                        messagebox.showinfo("Delete","Đã xóa thành công",parent=self.root)
+                        self.show()
+
+        except Exception as ex:
+            messagebox.showerror("Error", f"Error due to : {str(ex)}")  
 
 
 if __name__ == "__main__":
