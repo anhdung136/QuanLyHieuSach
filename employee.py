@@ -14,6 +14,7 @@ class employeeClass:
         #----Tất cả biến--------
         self.var_searchType = StringVar()
         self.var_searchtxt = StringVar()
+        self.var_searchby = StringVar()
 
         self.var_empid = StringVar()
         self.var_gender = StringVar()
@@ -25,72 +26,58 @@ class employeeClass:
         self.var_address = StringVar()
         self.var_salary = StringVar()
 
-        #===== khung tìm kiếm ===========
-        SearchFrame = LabelFrame(self.root, text="Tìm nhân viên", font=("time new roman", 12, "bold"), bd=2, relief=RIDGE, bg="#F1E4C3")
-        SearchFrame.place(x=10, y=20, width=500, height=70)
-
-        #===== các chức năng =========
-        cmb_search = ttk.Combobox(SearchFrame, textvariable=self.var_searchtxt,values=("Chọn theo", "Tên", "Email", "Liên hệ"), state='readonly', justify=CENTER, font=("time new roman", 15))
-        cmb_search.place(x=10, y=10, width=130)
-        cmb_search.current(0)
-        txt_search = Entry(SearchFrame, font=("time new roman", 15), bg="#F3EEEA").place(x=160, y=10)
-        btn_search = Button(SearchFrame, text="Tìm 🔍", font=("Arial Rounded MT Bold", 17), bg="#C85108",fg="#F4EEC7").place(x=400, y=8, width=80, height=30)
-
         #====================title================
-        title = Label(self.root, text="thông tin chi tiết của nhân viên", font=("time new roman", 15), bg="#52D3D8", fg="#000000").place(x=5, y=100, width=535)
-        title = Label(self.root, bg="#52D3D8", fg="#FFF9C9").place(x=520, y=4, width=25, height=125)
+        title = Label(self.root, text="thông tin chi tiết của nhân viên", font=("time new roman", 15), bg="#52D3D8", fg="#000000").place(x=10, y=250, width=770)
 
         #===================content====================
         #================== hàng 1 ==========
-        lbl_empid = Label(self.root, text="Mã số", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=5, y=150)
-        lbl_gender = Label(self.root, text="Giới tính", font=("time new roman", 15), bg="#F1E4C3",fg="#000000").place(x=285, y=150)
-        lbl_contact = Label(self.root, text="Liên hệ", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=535, y=150)
-        txt_empid = Entry(self.root, textvariable=self.var_empid, font=("time new roman", 15), bg="#F3EEEA", fg="#000000").place(x=70, y=150, width=200)
-        cmb_gender = ttk.Combobox(self.root, textvariable=self.var_gender, values=("Chọn theo", "Nam", "Nữ"), state='readonly', justify=CENTER, font=("time new roman", 15))
-        cmb_gender.place(x=373, y=150, width=149)
-        cmb_gender.current(0)
+        lbl_empid = Label(self.root, text="Mã số", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=5, y=5)
+        lbl_gender = Label(self.root, text="Giới tính", font=("time new roman", 15), bg="#F1E4C3",fg="#000000").place(x=285, y=5)
+        lbl_contact = Label(self.root, text="Liên hệ", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=535, y=5)
 
+        txt_empid = Entry(self.root, textvariable=self.var_empid, font=("time new roman", 15), bg="#F3EEEA", fg="#000000").place(x=70, y=5, width=200)
+        cmb_gender = ttk.Combobox(self.root, textvariable=self.var_gender, values=("Select","Nam", "Nữ"), state='readonly', justify=CENTER, font=("time new roman", 15))
+        cmb_gender.place(x=373, y=5, width=149)
+        cmb_gender.current(0)
         txt_contact = Entry(self.root, textvariable=self.var_contact, font=("time new roman", 15), bg="#F3EEEA",fg="#000000")
-        txt_contact.place(x=612, y=150, width=171)
+        txt_contact.place(x=612, y=5, width=171)
         #==================== hàng 2 ===========
-        lbl_name = Label(self.root, text="Họ & tên", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place( x=5, y=190)
-        lbl_dob = Label(self.root, text="Ngày sinh", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=285, y=190)
-        lbl_utype = Label(self.root, text="phân quyền", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=535, y=190)
+        lbl_name = Label(self.root, text="Họ tên", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place( x=5, y=45)
+        lbl_dob = Label(self.root, text="Ngày sinh", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=285, y=45)
+        lbl_utype = Label(self.root, text="phân quyền", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=535, y=45)
 
         txt_name = Entry(self.root, textvariable=self.var_name, font=("time new roman", 15), bg="#F3EEEA", fg="#000000")
-        txt_name.place(x=91, y=190, width=180)
-
+        txt_name.place(x=91, y=45, width=180)
         txt_dob = Entry(self.root, textvariable=self.var_dob, font=("time new roman", 15), bg="#F3EEEA",fg="#000000")
-        txt_dob.place(x=383, y=190, width=140)
-
-        cmb_utype = ttk.Combobox(self.root, textvariable=self.var_utype, values=("Chọn theo", "Quản Lý", "Nhân viên"), state='readonly', justify=CENTER, font=("time new roman", 15))
-        cmb_utype.place(x=648, y=190, width=135)
+        txt_dob.place(x=383, y=45, width=140)
+        cmb_utype = ttk.Combobox(self.root, textvariable=self.var_utype, values=("Select", "Quản Lý", "Nhân viên"), state='readonly', justify=CENTER, font=("time new roman", 15))
+        cmb_utype.place(x=648, y=45, width=135)
         cmb_utype.current(0)
 
         #==================== hàng 3 ===============
-        lbl_email = Label(self.root, text="Email", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place( x=5, y=230)
-        lbl_salary = Label(self.root, text="lương", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=285, y=230)
+        lbl_email = Label(self.root, text="Email", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place( x=5, y=85)
+        lbl_salary = Label(self.root, text="lương", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=285, y=85)
 
         txt_email = Entry(self.root, textvariable=self.var_email, font=("time new roman", 15), bg="#F3EEEA", fg="#000000")
-        txt_email.place(x=63, y=230, width=208)
+        txt_email.place(x=63, y=85, width=208)
 
        
         txt_salary = Entry(self.root, textvariable=self.var_salary, font=("time new roman", 15), bg="#F3EEEA", fg="#000000")
-        txt_salary.place(x=350, y=230, width=174)
+        txt_salary.place(x=350, y=85, width=174)
 
         #============hàng 4=======================
-        lbl_address = Label(self.root, text="Địa chỉ", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=5, y=270)
+        lbl_address = Label(self.root, text="Địa chỉ", font=("time new roman", 15), bg="#F1E4C3", fg="#000000").place(x=5, y=125)
 
         self.txt_address = Text(self.root, font=("time new roman", 15), bg="#F3EEEA", fg="#000000")
-        self.txt_address.place(x=77, y=270, width=705, height=50)
+        self.txt_address.place(x=77, y=125, width=705, height=50)
         #======= nút chức năng thêm xóa sửa ==========
-        btn_add = Button(self.root, text="Lưu", command=self.add, font=("time new roman", 17), bg="#1A5D1A", fg="#FAF0D7").place(x=570, y=25, width=80, height=30)
-        btn_upadte = Button(self.root, text="Sửa", command=self.update, font=("time new roman", 17), bg="#0C359E", fg="#FAF0D7").place(x=685, y=25, width=80, height=30)
-        btn_delete = Button(self.root, text="xóa", command=self.delete, font=("time new roman", 17), bg="#B70404", fg="#FAF0D7").place(x=570, y=70, width=80, height=30)
-        btn_clear = Button(self.root, text="làm mới", command=self.clear, font=("time new roman", 15), bg="#FFA447",fg="#FAF0D7").place(x=685, y=70, width=80, height=30)
+        btn_add = Button(self.root, text="Lưu", command=self.add, font=("time new roman", 17), bg="#1A5D1A", fg="#FAF0D7").place(x=70, y=200, width=80, height=30)
+        btn_upadte = Button(self.root, text="Sửa", command=self.update, font=("time new roman", 17), bg="#0C359E", fg="#FAF0D7").place(x=260, y=200, width=80, height=30)
+        btn_delete = Button(self.root, text="xóa", command=self.delete, font=("time new roman", 17), bg="#B70404", fg="#FAF0D7").place(x=450, y=200, width=80, height=30)
+        btn_clear = Button(self.root, text="làm mới", command=self.clear, font=("time new roman", 15), bg="#FFA447",fg="#FAF0D7").place(x=641, y=200, width=80, height=30)
         #======= thông tin nhân viên ===========
         emp_frame = Frame(self.root, bd=3, relief=RIDGE)
-        emp_frame.place(x=0, y=325, relwidth=1, height=109)
+        emp_frame.place(x=0, y=300, relwidth=1, height=134)
 
         scrolly = Scrollbar(emp_frame, orient=VERTICAL)
         scrollx = Scrollbar(emp_frame, orient=HORIZONTAL)
@@ -166,7 +153,6 @@ class employeeClass:
             self.EmployeeTable.delete(*self.EmployeeTable.get_children())
             for row in rows:
                 self.EmployeeTable.insert('',END,values=row)
-
         except Exception as ex:
             messagebox.showerror("Lỗi",f"Lỗi đến từ: {str(ex)}",parent=self.root)
 
@@ -242,21 +228,22 @@ class employeeClass:
                         self.clear()
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
-
     #_____Làm mới____
     def clear(self):
-        self.var_empid.set(""),
-        self.var_name.set(""),
-        self.var_email.set(""),
-        self.var_gender.set("Chọn theo"),
-        self.var_contact.set(""),
-        self.var_dob.set(""),
-        self.var_utype.set("Chọn theo"),
-        self.txt_address.set('1.0',END), 
+        self.var_empid.set("")
+        self.var_name.set("")
+        self.var_email.set("")
+        self.var_gender.set("Select")
+        self.var_contact.set("")
+        self.var_dob.set("")
+        self.var_utype.set("Select")
+        self.txt_address.delete('1.0',END) 
         self.var_salary.set("")
+        self.var_searchtxt.set("")
+        self.var_searchby.set("Select")
         self.show()
         
-
+   
 if __name__ == "__main__":
     root = Tk()
     obj = employeeClass(root)
