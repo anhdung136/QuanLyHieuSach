@@ -3,6 +3,7 @@ import time
 from PIL import Image, ImageTk  # pip install pillow
 from tkinter import messagebox
 from employee import employeeClass
+from category import categoryClass
 
 class IMS:
     def __init__(self, root):
@@ -58,7 +59,7 @@ class IMS:
         btn_employee = Button(self.leftMenu, text="Nhân viên", command=self.employee, image=self.icon_side,compound=LEFT, padx=10, anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
         btn_employee.pack(side=TOP, fill=X)
 
-        btn_category = Button(self.leftMenu, text="Danh mục", image=self.icon_side, compound=LEFT, padx=10, anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
+        btn_category = Button(self.leftMenu, text="Danh mục", command=self.category, image=self.icon_side, compound=LEFT, padx=10, anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
         btn_category.pack(side=TOP, fill=X)
 
         btn_product = Button(self.leftMenu, text="Sách", image=self.icon_side, compound=LEFT, padx=10,anchor="w", font=("time new roman", 20, "bold"), bg="#CC9B6D", bd=3, cursor="hand2")
@@ -82,7 +83,11 @@ class IMS:
     # ===============================================================================================================================================================================================
     def employee(self):
         self.new_win = Toplevel(self.root)
-        self.obj = employeeClass(self.new_win)
+        self.new_obj = employeeClass(self.new_win)
+
+    def category(self):
+        self.new_win = Toplevel(self.root)
+        self.new_obj = categoryClass(self.new_win)
 
     # ==== Exit Application ====
     def exit_application(self):
