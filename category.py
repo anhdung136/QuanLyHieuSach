@@ -39,6 +39,13 @@ class categoryClass:
         self.category_table.column("name",width=100)
         self.category_table.pack(fill=BOTH,expand=1)
 
+        #===--image---===
+        self.cat_img = Image.open("images/cat.png")
+        self.cat_img = self.cat_img.resize((290, 140), Image.LANCZOS)
+        self.cat_img = ImageTk.PhotoImage(self.cat_img)
+
+        lbl_image = Label(self.root, image=self.cat_img)
+        lbl_image.place(x=50, y=280)
 
 if __name__ == "__main__":
     root = Tk()
