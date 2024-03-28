@@ -21,7 +21,7 @@ class IMS:
         
     # ====title====
     def create_title_label(self):
-        self.icon_title = PhotoImage(file="images/book.png")
+        self.icon_title = PhotoImage(file="images/logoxitrum.png")
         title = Label(self.root, text="HỆ THỐNG QUẢN LÝ HIỆU SÁCH", image=self.icon_title, compound=LEFT, font=("time new roman", 30, "bold"), bg="#B19470", fg="#F8FAE5", anchor="w", padx=20)
         title.place(x=0, y=0, relwidth=1, height=70)
     
