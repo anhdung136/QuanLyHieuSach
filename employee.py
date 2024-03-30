@@ -113,6 +113,7 @@ class employeeClass:
         self.show()
 
 #=================================================================================================================
+    
     #____add_____ 
     def add(self):
         con = sqlite3.connect(database="ims.db")
@@ -142,6 +143,7 @@ class employeeClass:
                     self.show()
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
+
 
     #____show____
     def show(self):
@@ -207,6 +209,7 @@ class employeeClass:
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
 
+
     #____Xóa____
     def delete(self):
         con=sqlite3.connect(database=r'ims.db')
@@ -228,6 +231,8 @@ class employeeClass:
                         self.clear()
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
+
+
     #_____Làm mới____
     def clear(self):
         self.var_empid.set("")
