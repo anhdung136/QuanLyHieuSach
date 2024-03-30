@@ -15,13 +15,13 @@ class categoryClass:
         self.var_name = StringVar()
 
     #============title===============
-        lbl_titel = Label(self.root, text="Quản Lý Danh Mục", font=("time new roman",30),bg="grey",fg="white",relief=RIDGE).pack(side=TOP,fill=X,padx=10,pady=2)
+        lbl_titel = Label(self.root, text="Quản Lý Danh Mục", font=("time new roman",30),bg="#C6A969",fg="white",relief=RIDGE).pack(side=TOP,fill=X,padx=10,pady=2)
 
-        lbl_name = Label(self.root, text="Nhập Danh Mục", font=("time new roman",30),bg="grey").place(x=50,y=100)
+        lbl_name = Label(self.root, text="Nhập Danh Mục", font=("time new roman",30),bg="#FFFFEC").place(x=50,y=100)
         lbl_name = Entry(self.root, textvariable= self.var_name, font=("time new roman",20),bg="lightyellow").place(x=50,y=170,width=290)
 
-        btn_add = Button(self.root, text="Thêm", font=("time new roman",18),bg="green",fg="black", cursor="hand2").place(x=50,y=230,width=100,height=30)
-        btn_delete = Button(self.root, text="Xóa", font=("time new roman",18),bg="red",fg="black", cursor="hand2").place(x=240,y=230,width=100,height=30)
+        btn_add = Button(self.root, text="Thêm", font=("time new roman",18),bg="#1A5D1A",fg="#FAF0D7", cursor="hand2").place(x=50,y=230,width=100,height=30)
+        btn_delete = Button(self.root, text="Xóa", font=("time new roman",18),bg="#B70404",fg="#FAF0D7", cursor="hand2").place(x=240,y=230,width=100,height=30)
     #========--category details--============
         cat_frame=Frame(self.root,bd=3,relief=RIDGE)
         cat_frame.place(x=400,y=100,width=380,height=320)
