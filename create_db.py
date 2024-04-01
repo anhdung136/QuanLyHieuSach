@@ -11,9 +11,13 @@ def create_db():
     con.commit() # Lưu các thay đổi vào cơ sở dữ liệu
 
     #________CATEGORY_______
-     # Tạo bảng category nếu chưa tồn tại, với các trường dữ liệu như: empid, name, email, gender, contact, dob, utype, address, salary
+    # Tạo bảng category nếu chưa tồn tại, với các trường dữ liệu như: empid, name, email, gender, contact, dob, utype, address, salary
     cur.execute("CREATE TABLE IF NOT EXISTS category(cid INTEGER PRIMARY KEY AUTOINCREMENT, name text)")
     con.commit() # Lưu các thay đổi vào cơ sở dữ liệu
 
+    #________CATEGORY_______
+    # Tạo bảng category nếu chưa tồn tại, với các trường dữ liệu như: empid, name, email, gender, contact, dob, utype, address, salary
+    cur.execute("CREATE TABLE IF NOT EXISTS category(cid INTEGER PRIMARY KEY AUTOINCREMENT, category text, name text, author text, price text, describe text, status text)")
+    con.commit() # Lưu các thay đổi vào cơ sở dữ liệu
 
 create_db()

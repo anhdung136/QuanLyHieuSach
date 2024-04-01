@@ -27,7 +27,7 @@ class employeeClass:
         self.var_salary = StringVar()
 
         #====================title================
-        title = Label(self.root, text="thông tin chi tiết của nhân viên", font=("time new roman", 15), bg="#52D3D8", fg="#000000").place(x=10, y=250, width=770)
+        title = Label(self.root, text="thông tin chi tiết của nhân viên", font=("time new roman", 15, "bold"), bg="#52D3D8", fg="#000000").place(x=10, y=250, width=770)
 
         #===================content====================
         #================== hàng 1 ==========

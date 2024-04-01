@@ -15,7 +15,7 @@ class categoryClass:
         self.var_name = StringVar()
 
     #============title===============
-        lbl_titel = Label(self.root, text="Quản Lý Danh Mục", font=("time new roman",30),bg="#C6A969",fg="white",relief=RIDGE).pack(side=TOP,fill=X,padx=10,pady=2)
+        lbl_titel = Label(self.root, text="Quản Lý Danh Mục", font=("time new roman", 30, "bold"),bg="#C6A969",fg="white",relief=RIDGE).pack(side=TOP,fill=X,padx=10,pady=2)
 
         lbl_name = Label(self.root, text="Nhập Danh Mục", font=("time new roman",30),bg="#FFFFEC").place(x=50,y=100)
         lbl_name = Entry(self.root, textvariable= self.var_name, font=("time new roman",20),bg="lightyellow").place(x=50,y=170,width=290)
