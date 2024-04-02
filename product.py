@@ -18,6 +18,8 @@ class productClass:
         self.var_describe = StringVar()
         self.var_status = StringVar()
         self.var_img = StringVar()
+        self.cat_list=[]
+        self.fetch_cat()
 
 
         productFrame = Frame(self.root,bd=3,relief=RIDGE)
@@ -37,7 +39,7 @@ class productClass:
         txt_category = Label(productFrame,text="Danh mục:",font=("time new roman",15), fg="#000000").place(x=10,y=60)
 
         #__Cột 2__
-        cmb_cat = ttk.Combobox(productFrame, textvariable=self.var_cat, values=("Chọn"), state='readonly', justify=CENTER, font=("time new roman",15))
+        cmb_cat = ttk.Combobox(productFrame, textvariable=self.var_cat, values=self.cat_list, state='readonly', justify=CENTER, font=("time new roman",15))
         cmb_cat.place(x=110,y=60,width=270)
         cmb_cat.current(0)
 
@@ -47,7 +49,7 @@ class productClass:
         self.txt_describe = Text(productFrame, font=("time new roman", 15), bg='#FEFBF6', wrap=WORD, width=30, height=3)
         self.txt_describe.place(x=110, y=220, width=270, height=70)
         
-        cmb_status = ttk.Combobox(productFrame, textvariable=self.var_status, values=("Còn hàng"), state='readonly', justify=CENTER, font=("time new roman",15))
+        cmb_status = ttk.Combobox(productFrame, textvariable=self.var_status, values=("m", "Hết"), state='readonly', justify=CENTER, font=("time new roman",15))
         cmb_status.place(x=110,y=300,width=270)
         cmb_status.current(0)
 
@@ -82,7 +84,7 @@ class productClass:
         scrolly.config(command=self.product_table.yview)
         scrollx.config(command=self.product_table.xview)
 
-        self.product_table.heading("pid", text=u"Mã số")
+        self.product_table.heading("pid", text=u"Mã")
         self.product_table.heading("category", text=u"Danh mục")
         self.product_table.heading("name", text=u"Tên")
         self.product_table.heading("author", text=u"Tác giả")
@@ -92,13 +94,13 @@ class productClass:
 
         self.product_table["show"] = "headings"
 
-        self.product_table.column("pid", width=5)
+        self.product_table.column("pid", width=20)
         self.product_table.column("category", width=90)
-        self.product_table.column("name", width=70)
-        self.product_table.column("author", width=17)
-        self.product_table.column("price", width=40)
-        self.product_table.column("describe", width=40)
-        self.product_table.column("status", width=30)
+        self.product_table.column("name", width=100)
+        self.product_table.column("author", width=80)
+        self.product_table.column("price", width=50)
+        self.product_table.column("describe", width=100)
+        self.product_table.column("status", width=60)
         self.product_table.pack(fill=BOTH, expand=1)
         self.product_table.bind("<ButtonRelease-1>",self.get_data)
 
@@ -106,12 +108,29 @@ class productClass:
 
 
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-         #____add_____ 
+    def fetch_cat(self):
+        self.cat_list.append("Empty")
+        con = sqlite3.connect(database="ims.db")
+        cur = con.cursor()
+        try:
+            cur.execute("Select name from category")
+            cat = cur.fetchall()
+            self.cat_list.append("Empty")
+            if len(cat)>0:
+                del self.cat_list[:]
+                self.cat_list.append("Chọn")
+                for i in cat:
+                    self.cat_list.append(i[0])
+        except Exception as ex:
+            messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
+
+    
+    #____add_____ 
     def add(self):
         con = sqlite3.connect(database="ims.db")
         cur = con.cursor()
         try:
-            if self.var_cat.get() == "Chọn" or self.var_status.get()=="Còn hàng" or self.var_name.get()=="":
+            if self.var_cat.get() == "Chọn" or self.var_cat.get() == "Empty" or self.var_status.get()=="Còn" or self.var_name.get()=="":
                 messagebox.showerror("Lỗi", "Hãy nhập đủ thông tin!", parent=self.root)
             else:
                 cur.execute("Select * from product where name=?", (self.var_name.get(),))
@@ -119,19 +138,16 @@ class productClass:
                 if row != None:
                     messagebox.showerror("Lỗi", "Đã có sản phẩm này rồi", parent=self.root)
                 else:
-                    cur.execute("Insert into employee(empid,name,email,gender,contact,dob,utype,address,salary) values (?,?,?,?,?,?,?,?,?)",(
-                                        self.var_empid.get(),
+                    cur.execute("Insert into product(pid, category, name, author, price, describe, status) values (?,?,?,?,?,?,?)",(
+                                        self.var_cat.get(),
                                         self.var_name.get(),
-                                        self.var_email.get(),
-                                        self.var_gender.get(),
-                                        self.var_contact.get(),
-                                        self.var_dob.get(),
-                                        self.var_utype.get(),
-                                        self.txt_address.get('1.0',END), 
-                                        self.var_salary.get()
+                                        self.var_author.get(),
+                                        self.var_price.get(),
+                                        self.var_describe.get(),
+                                        self.var_status.get(),
                         ))
                     con.commit()
-                    messagebox.showinfo("Thêm", "Đã thêm nhân viên", parent=self.root)
+                    messagebox.showinfo("Thêm", "Đã thêm sách", parent=self.root)
                     self.show()
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")

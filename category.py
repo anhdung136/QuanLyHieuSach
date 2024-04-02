@@ -66,7 +66,7 @@ class categoryClass:
                     cur.execute("INSERT INTO category (name) VALUES (?)", (self.var_name.get(),))
                     con.commit()
                     messagebox.showinfo("Thêm", "Đã thêm danh mục", parent=self.root)
-                    #self.show()
+                    self.show()
         except Exception as ex:
             messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
 
