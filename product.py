@@ -20,6 +20,7 @@ class productClass:
         self.var_img = StringVar()
         self.cat_list=[]
         self.fetch_cat()
+        self.var_pid = StringVar()
 
 
         productFrame = Frame(self.root,bd=3,relief=RIDGE)
@@ -106,13 +107,13 @@ class productClass:
 
     #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     def fetch_cat(self):
-        self.cat_list.append("Empty")
+        self.cat_list.append("Không có")
         con = sqlite3.connect(database="ims.db")
         cur = con.cursor()
         try:
             cur.execute("Select name from category")
             cat = cur.fetchall()
-            self.cat_list.append("Empty")
+            self.cat_list.append("Không có")
             if len(cat)>0:
                 del self.cat_list[:]
                 self.cat_list.append("Chọn")
@@ -127,7 +128,7 @@ class productClass:
         con = sqlite3.connect(database="ims.db")
         cur = con.cursor()
         try:
-            if self.var_cat.get() == "Chọn" or self.var_cat.get() == "Empty" or self.var_status.get()=="Còn" or self.var_name.get()=="":
+            if self.var_cat.get() == "Chọn" or self.var_cat.get() == "Không có" or self.var_status.get()=="Còn" or self.var_name.get()=="":
                 messagebox.showerror("Lỗi", "Hãy nhập đủ thông tin!", parent=self.root)
             else:
                 cur.execute("Select * from product where name=?", (self.var_name.get(),))
@@ -135,7 +136,7 @@ class productClass:
                 if row != None:
                     messagebox.showerror("Lỗi", "Đã có sản phẩm này rồi", parent=self.root)
                 else:
-                    cur.execute("Insert into product( category, name, author, price, describe, status) values (?,?,?,?,?)",(
+                    cur.execute("Insert into product( category, name, author, price, describe, status) values (?,?,?,?,?,?)",(
                                         self.var_cat.get(),
                                         self.var_name.get(),
                                         self.var_author.get(),
@@ -171,6 +172,7 @@ class productClass:
         row = content['values']
         #for value in row:
             #print(str(value).encode('unicode_escape').decode('utf-8'))
+        self.var_pid.set(row[0])
         self.var_cat.set(row[1])
         self.var_name.set(row[2])
         self.var_author.set(row[3])
@@ -179,27 +181,28 @@ class productClass:
         self.txt_describe.insert(END, row[5])  # Insert text into the Text widget
         self.var_status.set(row[6])
 
-
+ 
    #____update____ 
     def update(self):
         con = sqlite3.connect(database="ims.db")
         cur = con.cursor()
         try:
-            if self.var_name.get() == "":
+            if self.var_pid.get() == "":
                 messagebox.showerror("Lỗi", "Hãy chọn sách!", parent=self.root)
             else:
-                cur.execute("Select * from product where name=?", (self.var_name.get(),))
+                cur.execute("Select * from product where pid=?", (self.var_pid.get(),))
                 row = cur.fetchone()
                 if row is None:
-                    messagebox.showerror("Lỗi","thông tin không hợp lệ", parent=self.root)
+                    messagebox.showerror("Lỗi","thông tin sách không hợp lệ", parent=self.root)
                 else:
-                    cur.execute("UPDATE product SET category=?, author=?, price=?, describe=?, status=? WHERE name=?",(
+                    cur.execute("UPDATE product SET category=?, name=?, author=?, price=?, describe=?, status=? WHERE pid=?",(
                             self.var_cat.get(),
                             self.var_name.get(),
                             self.var_author.get(),
                             self.var_price.get(),
                             self.txt_describe.get('1.0', END),
-                            self.var_status.get()
+                            self.var_status.get(),
+                            self.var_pid.get()
                         ))
                     con.commit()
                     messagebox.showinfo("Sửa", "Đã cập nhật thành công", parent=self.root)
