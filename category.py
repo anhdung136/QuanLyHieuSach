@@ -90,10 +90,11 @@ class categoryClass:
         f = self.category_table.focus()
         content = self.category_table.item(f)
         row = content['values']
-        for value in row:
-            print(str(value).encode('unicode_escape').decode('utf-8'))
-        self.var_cid.set(row[0])
-        self.var_name.set(row[1])
+        if row:
+            for value in row:
+                print(str(value).encode('unicode_escape').decode('utf-8'))
+            self.var_cid.set(row[0])
+            self.var_name.set(row[1])
 
 
     #____Xóa____
@@ -118,7 +119,7 @@ class categoryClass:
                         self.var_cid.set("")
                         self.var_name.set("")
         except Exception as ex:
-            messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
+            messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")      
 
 if __name__ == "__main__":
     root = Tk()

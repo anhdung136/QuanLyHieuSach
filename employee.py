@@ -164,18 +164,19 @@ class employeeClass:
         f = self.EmployeeTable.focus()
         content = self.EmployeeTable.item(f)
         row = content['values']
-        for value in row:
-            print(str(value).encode('unicode_escape').decode('utf-8'))
-        self.var_empid.set(row[0])
-        self.var_name.set(row[1])
-        self.var_email.set(row[2])
-        self.var_gender.set(row[3])
-        self.var_contact.set(row[4])
-        self.var_dob.set(row[5])
-        self.var_utype.set(row[6])
-        self.txt_address.delete('1.0', END)
-        self.txt_address.insert(END, row[7])
-        self.var_salary.set(row[8])
+        if row:
+            for value in row:
+                print(str(value).encode('unicode_escape').decode('utf-8'))
+            self.var_empid.set(row[0])
+            self.var_name.set(row[1])
+            self.var_email.set(row[2])
+            self.var_gender.set(row[3])
+            self.var_contact.set(row[4])
+            self.var_dob.set(row[5])
+            self.var_utype.set(row[6])
+            self.txt_address.delete('1.0', END)
+            self.txt_address.insert(END, row[7])
+            self.var_salary.set(row[8])
 
 
     #____update____ 

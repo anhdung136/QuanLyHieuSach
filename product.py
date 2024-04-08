@@ -21,6 +21,8 @@ class productClass:
         self.cat_list=[]
         self.fetch_cat()
         self.var_pid = StringVar()
+        self.var_searchby = StringVar()
+        self.var_searchtxt = StringVar()
 
 
         productFrame = Frame(self.root,bd=3,relief=RIDGE)
@@ -62,12 +64,12 @@ class productClass:
         SearchFrame = LabelFrame(self.root, text="Tìm sách", bg='white', font=("time new roman",15,"bold"), bd=2, relief=RIDGE)
         SearchFrame.place(x=420, y=10, width=360, height=90)
 
-        cmb_search=ttk.Combobox(SearchFrame, values=("Tên", "Tác giả"), state='readonly', justify=CENTER, font=("time new roman", 10))
+        cmb_search=ttk.Combobox(SearchFrame, textvariable=self.var_searchby, values=("Tên", "Tác giả"), state='readonly', justify=CENTER, font=("time new roman", 10))
         cmb_search.place(x=10, y=10, width=70)
         cmb_search.current(0)
 
         txt_search=Entry(SearchFrame, font=("time new roman", 15),bg="#FFFFEC").place(x=95, y=8, width=200)
-        btn_search=Button(SearchFrame, text ="Tìm", font=("time new roman", 10, "bold"),bg="#BFEA7C", cursor="hand2").place(x=305, y=8)
+        btn_search=Button(SearchFrame, text ="Tìm", command=self.search,font=("time new roman", 10, "bold"),bg="#BFEA7C", cursor="hand2").place(x=305, y=8)
 
 
     #======= thông tin sách =================
@@ -170,16 +172,17 @@ class productClass:
         f = self.product_table.focus()
         content = self.product_table.item(f)
         row = content['values']
-        #for value in row:
-            #print(str(value).encode('unicode_escape').decode('utf-8'))
-        self.var_pid.set(row[0])
-        self.var_cat.set(row[1])
-        self.var_name.set(row[2])
-        self.var_author.set(row[3])
-        self.var_price.set(row[4])
-        self.txt_describe.delete('1.0', END)  # Clear the text widget before setting new value
-        self.txt_describe.insert(END, row[5])  # Insert text into the Text widget
-        self.var_status.set(row[6])
+        if row: 
+            for value in row:
+                print(str(value).encode('unicode_escape').decode('utf-8'))
+            self.var_pid.set(row[0])
+            self.var_cat.set(row[1])
+            self.var_name.set(row[2])
+            self.var_author.set(row[3])
+            self.var_price.set(row[4])
+            self.txt_describe.delete('1.0', END)  # Clear the text widget before setting new value
+            self.txt_describe.insert(END, row[5])  # Insert text into the Text widget
+            self.var_status.set(row[6])
 
  
    #____update____ 
@@ -242,7 +245,33 @@ class productClass:
         self.var_price.set(""),
         self.txt_describe.delete('1.0', END),
         self.var_status.set("")
+        self.var_searchtxt.set("")
         self.show()
+
+    #____Tìm Kiếm_____
+    def search(self):
+        con=sqlite3.connect(database="ims.db")
+        cur=con.cursor()
+        try:
+            if self.var_searchby.get()=="Tên":
+                messagebox.showerror("Lỗi", "Hãy chọn trường tìm kiếm", parent=self.root)
+            elif self.var_searchtxt.get()=="":
+                 messagebox.showerror("Lỗi", "Hãy nhập thông tin cần tìm", parent=self.root)
+
+            else:
+                cur.execute("Select * from product where "+self.var_searchby.get()+" LIKE '%"+self.var_searchtxt.get()+"%'")
+                rows=cur.fetchall()
+                if len(row)!=0:
+
+                    self.product_table.delete(*self.product_table.get_children())
+                    for row in rows:
+                        self.product_table.insert('',END,values=row)
+                else:
+                    messagebox.showerror("Lỗi", "không tồn tại", parent=self.root)
+        except Exception as ex:
+            messagebox.showerror("Lỗi",f"Lỗi đến từ: {str(ex)}",parent=self.root)
+
+
   
 if __name__ == "__main__":
     root = Tk()
