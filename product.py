@@ -67,7 +67,7 @@ class productClass:
         cmb_search=ttk.Combobox(SearchFrame, textvariable=self.var_searchby, values=("Tên", "Tác giả"), state='readonly', justify=CENTER, font=("time new roman", 10))
         cmb_search.place(x=10, y=10, width=70)
         cmb_search.current(0)
-
+#---- Lỗi tìm kiếm------------------------
         txt_search=Entry(SearchFrame, font=("time new roman", 15),bg="#FFFFEC").place(x=95, y=8, width=200)
         btn_search=Button(SearchFrame, text ="Tìm", command=self.search,font=("time new roman", 10, "bold"),bg="#BFEA7C", cursor="hand2").place(x=305, y=8)
 
@@ -253,7 +253,7 @@ class productClass:
         con=sqlite3.connect(database="ims.db")
         cur=con.cursor()
         try:
-            if self.var_searchby.get()=="Tên":
+            if self.var_searchby.get()=="Chọn":
                 messagebox.showerror("Lỗi", "Hãy chọn trường tìm kiếm", parent=self.root)
             elif self.var_searchtxt.get()=="":
                  messagebox.showerror("Lỗi", "Hãy nhập thông tin cần tìm", parent=self.root)
