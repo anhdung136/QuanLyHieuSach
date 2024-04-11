@@ -251,7 +251,7 @@ class productClass:
         self.var_status.set("Chọn")
         self.var_pid.set("")
         self.var_searchtxt.set("")
-        self.var_searchby.get("Chọn")
+        self.var_searchby.set("Chọn")
         self.show()
 
     #____Tìm Kiếm_____
