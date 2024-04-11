@@ -68,11 +68,11 @@ class productClass:
         cmb_search.place(x=10, y=10, width=70)
         cmb_search.current(0)
 #---- Lỗi tìm kiếm------------------------
-        txt_search = Entry(SearchFrame, font=("time new roman", 15), bg="#FFFFEC")
+        txt_search = Entry(SearchFrame, textvariable=self.var_searchtxt, font=("time new roman", 15), bg="#FFFFEC")
         txt_search.place(x=95, y=8, width=200)
         
         btn_search = Button(SearchFrame, text="Tìm", command=self.search, font=("time new roman", 10, "bold"), bg="#BFEA7C", cursor="hand2")
-        btn_search.place(x=305, y=8)
+        btn_search.place(x=305, y=8, width=40)
 
 
 
@@ -243,40 +243,43 @@ class productClass:
 
     #_____Làm mới____
     def clear(self):
-        self.var_cat.set("Chọn"),
-        self.var_name.set(""),
-        self.var_author.set(""),
-        self.var_price.set(""),
-        self.txt_describe.delete('1.0', END),
+        self.var_cat.set("Chọn")
+        self.var_name.set("")
+        self.var_author.set("")
+        self.var_price.set("")
+        self.txt_describe.delete('1.0', END)
         self.var_status.set("Chọn")
+        self.var_pid.set("")
         self.var_searchtxt.set("")
+        self.var_searchby.get("Chọn")
         self.show()
 
     #____Tìm Kiếm_____
     def search(self):
-        con=sqlite3.connect(database="ims.db")
-        cur=con.cursor()
+        con = sqlite3.connect(database=r'ims.db')
+        cur = con.cursor()
         try:
-            if self.var_searchby.get()=="Chọn":
+            if self.var_searchby.get() == "Chọn":
                 messagebox.showerror("Lỗi", "Hãy chọn trường tìm kiếm", parent=self.root)
-            elif self.var_searchtxt.get()=="":
-                 messagebox.showerror("Lỗi", "Hãy nhập thông tin cần tìm", parent=self.root)
-
+            elif self.var_searchtxt.get() == "":
+                messagebox.showerror("Lỗi", "Hãy nhập thông tin cần tìm", parent=self.root)
             else:
-                cur.execute("Select * from product where "+self.var_searchby.get()+" LIKE '%"+self.var_searchtxt.get()+"%'")
-                rows=cur.fetchall()
-                if len(row)!=0:
+                if self.var_searchby.get() == "Tên":
+                    cur.execute("SELECT * FROM product WHERE name LIKE '%" + self.var_searchtxt.get() + "%'")
+                elif self.var_searchby.get() == "Tác giả":
+                    cur.execute("SELECT * FROM product WHERE author LIKE '%" + self.var_searchtxt.get() + "%'")
 
+                rows = cur.fetchall()
+                if len(rows) != 0:
                     self.product_table.delete(*self.product_table.get_children())
                     for row in rows:
-                        self.product_table.insert('',END,values=row)
+                        self.product_table.insert('', END, values=row)
                 else:
-                    messagebox.showerror("Lỗi", "không tồn tại", parent=self.root)
+                    messagebox.showerror("Lỗi", "Không tồn tại", parent=self.root)
         except Exception as ex:
-            messagebox.showerror("Lỗi",f"Lỗi đến từ: {str(ex)}",parent=self.root)
+            messagebox.showerror("Lỗi", f"Lỗi đến từ: {str(ex)}", parent=self.root)
 
 
-  
 if __name__ == "__main__":
     root = Tk()
     obj = productClass(root)

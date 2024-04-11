@@ -18,7 +18,6 @@ def create_db():
     #________PRODUCT_______
     # Tạo bảng product nếu chưa tồn tại, với các trường dữ liệu như: category, name, author, price, describe, status
     cur.execute("CREATE TABLE IF NOT EXISTS product(pid INTEGER PRIMARY KEY AUTOINCREMENT, category text, name text, author text, price text, describe text, status text)")
-
     con.commit() # Lưu các thay đổi vào cơ sở dữ liệu
 
 create_db()
