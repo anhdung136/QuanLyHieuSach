@@ -50,7 +50,7 @@ class productClass:
         self.txt_describe = Text(productFrame, font=("time new roman", 15), bg='#FEFBF6', wrap=WORD, width=30, height=3)
         self.txt_describe.place(x=110, y=210, width=270, height=70)
         
-        cmb_status = ttk.Combobox(productFrame, textvariable=self.var_status, values=("Sách mới", "Sách tồn kho"), state='readonly', justify=CENTER, font=("time new roman",15))
+        cmb_status = ttk.Combobox(productFrame, textvariable=self.var_status, values=("Sách mới", "Sách tồn kho", "Không còn sách"), state='readonly', justify=CENTER, font=("time new roman",15))
         cmb_status.place(x=110,y=290,width=270)
         cmb_status.current(0)
 
@@ -64,12 +64,16 @@ class productClass:
         SearchFrame = LabelFrame(self.root, text="Tìm sách", bg='white', font=("time new roman",15,"bold"), bd=2, relief=RIDGE)
         SearchFrame.place(x=420, y=10, width=360, height=90)
 
-        cmb_search=ttk.Combobox(SearchFrame, textvariable=self.var_searchby, values=("Tên", "Tác giả"), state='readonly', justify=CENTER, font=("time new roman", 10))
+        cmb_search=ttk.Combobox(SearchFrame, textvariable=self.var_searchby, values=("Chọn", "Tên", "Tác giả"), state='readonly', justify=CENTER, font=("time new roman", 10))
         cmb_search.place(x=10, y=10, width=70)
         cmb_search.current(0)
 #---- Lỗi tìm kiếm------------------------
-        txt_search=Entry(SearchFrame, font=("time new roman", 15),bg="#FFFFEC").place(x=95, y=8, width=200)
-        btn_search=Button(SearchFrame, text ="Tìm", command=self.search,font=("time new roman", 10, "bold"),bg="#BFEA7C", cursor="hand2").place(x=305, y=8)
+        txt_search = Entry(SearchFrame, font=("time new roman", 15), bg="#FFFFEC")
+        txt_search.place(x=95, y=8, width=200)
+        
+        btn_search = Button(SearchFrame, text="Tìm", command=self.search, font=("time new roman", 10, "bold"), bg="#BFEA7C", cursor="hand2")
+        btn_search.place(x=305, y=8)
+
 
 
     #======= thông tin sách =================
@@ -239,12 +243,12 @@ class productClass:
 
     #_____Làm mới____
     def clear(self):
-        self.var_cat.set(""),
+        self.var_cat.set("Chọn"),
         self.var_name.set(""),
         self.var_author.set(""),
         self.var_price.set(""),
         self.txt_describe.delete('1.0', END),
-        self.var_status.set("")
+        self.var_status.set("Chọn")
         self.var_searchtxt.set("")
         self.show()
 
