@@ -142,7 +142,7 @@ class employeeClass:
                     messagebox.showinfo("Thêm", "Đã thêm nhân viên", parent=self.root)
                     self.show()
         except Exception as ex:
-            messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}")
+            messagebox.showerror("Lỗi", f"Lỗi đến từ : {str(ex)}",parent=self.root)
 
 
     #____show____

@@ -5,6 +5,8 @@ from tkinter import messagebox
 from employee import employeeClass
 from category import categoryClass
 from product import productClass
+import sqlite3
+from tkinter import messagebox
 
 class IMS:
     def __init__(self, root):
@@ -19,6 +21,7 @@ class IMS:
         self.create_content_label()  # Gọi hàm tạo nội dung
         self.create_logout_button()  # Thêm nút Thoát
         self.root.config(bg="#FFFFEC")
+        self.update_content()
         
     # ====title====
     def create_title_label(self):
@@ -81,7 +84,7 @@ class IMS:
     def create_footer_label(self):
         self.lbl_footer = Label(self.root,text="Hệ thống quản lý hiệu sách  -  phát triển bởi nhóm 9 - lớp K15DCPM06\nNguyễn Anh Dũng  -  Nguyễn Trọng Nghĩa  -  Nguyễn Hoàng Giang", font=("time new roman", 12, "bold"), bg="#76453B", fg="#F8FAE5").pack(side=BOTTOM,fill=X)
     
-    # ===============================================================================================================================================================================================
+# ===============================================================================================================================================================================================
     def employee(self):
         self.new_win = Toplevel(self.root)
         self.new_obj = employeeClass(self.new_win)
@@ -97,6 +100,27 @@ class IMS:
     # ==== Exit Application ====
     def exit_application(self):
         self.root.destroy()
+
+    # -=-=-=-=- update content -=-=-=-=-
+    def update_content(self):
+        con=sqlite3.connect(database=r'ims.db')
+        cur=con.cursor()
+        try:
+            cur.execute("select * from product")
+            product=cur.fetchall()
+            self.lbl_product.config(text=f'Tổng số sách\n[ {str(len(product))} ]')
+
+            cur.execute("select * from category")
+            category=cur.fetchall()
+            self.lbl_category.config(text=f'Tổng số danh mục\n[ {str(len(category))} ]')
+
+            cur.execute("select * from employee")
+            employee=cur.fetchall()
+            self.lbl_employee.config(text=f'Tổng số sách\n[ {str(len(employee))} ]')
+
+
+        except Exception as ex:
+            messagebox.showerror("Lỗi",f"Lỗi đến từ : {str(ex)}",parent=self.root)
 
 
 
