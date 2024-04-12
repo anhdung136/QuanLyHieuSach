@@ -116,7 +116,7 @@ class IMS:
 
             cur.execute("select * from employee")
             employee=cur.fetchall()
-            self.lbl_employee.config(text=f'Tổng số sách\n[ {str(len(employee))} ]')
+            self.lbl_employee.config(text=f'Tổng số nhân viên\n[ {str(len(employee))} ]')
 
 
         except Exception as ex:
