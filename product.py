@@ -67,7 +67,7 @@ class productClass:
         cmb_search=ttk.Combobox(SearchFrame, textvariable=self.var_searchby, values=("Chọn", "Tên", "Tác giả"), state='readonly', justify=CENTER, font=("time new roman", 10))
         cmb_search.place(x=10, y=10, width=70)
         cmb_search.current(0)
-#---- Lỗi tìm kiếm------------------------
+
         txt_search = Entry(SearchFrame, textvariable=self.var_searchtxt, font=("time new roman", 15), bg="#FFFFEC")
         txt_search.place(x=95, y=8, width=200)
         
