@@ -117,8 +117,6 @@ class IMS:
             cur.execute("select * from employee")
             employee=cur.fetchall()
             self.lbl_employee.config(text=f'Tổng số nhân viên\n[ {str(len(employee))} ]')
-
-
         except Exception as ex:
             messagebox.showerror("Lỗi",f"Lỗi đến từ : {str(ex)}",parent=self.root)
 
